@@ -1,10 +1,10 @@
-### Install
+## Install
 
 Install with npm:
 ```
  npm install redux-persist-tree --save
 ```
-### Usage
+## Usage
 
 Import with:
 
@@ -12,7 +12,7 @@ Import with:
 import { persistMiddleware, persistTree } from "redux-persist-tree";
 ```
 
-#### Setup
+### Setup
 
 There are a couple of things you need to get started. Firstly add the `persistMiddleware` to your redux middleware.
 
@@ -76,7 +76,7 @@ The `persistMachine` takes three arguments: the persist object defined above, th
 
 Your reducer data will automatically saved when the values are changed. You can load each reducer using its load action (to see all the load actions generated in your console set the third parameter of `persistMachine` to `true`).
 
-#### Loading Data
+### Loading Data
 
 You can receive actions in your reducers. The code below will apply the saved state to your current state:
 
@@ -93,7 +93,7 @@ This allows you to have loading on a per reducer basis separated across the appl
 
 The middleware runs: `` action.payload = { ...storedData, ...action.payload };`` to add the saved data to the payload when the LOAD_ACTION is triggered. You can also pass additional data in your payload to add context to your LOAD_ACTIONS for complex conditional consummation of the loaded data in your reducers.
 
-### Providers
+## Providers
 
 Links for save and load functions for diffrent libraries and platforms.
 
