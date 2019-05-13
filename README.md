@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LukeBrandonFarrell/open-source-images/master/redux-persist-machine/redux-persist-machine-logo.png" width="190" height="190">
+  <img src="https://raw.githubusercontent.com/LukeBrandonFarrell/open-source-images/master/redux-persist-machine/redux-persist-machine-logo.png" width="240" height="240">
   <br />
   <a href="https://www.npmjs.com/package/redux-persist-machine" rel="nofollow">
     <img src="https://img.shields.io/npm/v/redux-persist-machine.svg?style=flat-square" alt="version" style="max-width:100%;" />
