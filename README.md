@@ -20,7 +20,7 @@ redux-persist-machine provides a reliable way to rehydrate your state. The state
 - Don't allow shape changes in your store to affect your data (each stored reducer will have its own key and loaded data is reassigned manually in each reducer)
 - Define how your reducers receive and persist loaded data, allowing further customisation on when and how data is rehydrated through your application.
 
-[See our documentation](https://github.com/lukebrandonfarrell/redux-persist-machine/docs/README.md).
+[See our documentation](https://github.com/lukebrandonfarrell/redux-persist-machine/blob/master/docs/README.md).
 
 ## Motivation
 
