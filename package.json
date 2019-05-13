@@ -1,0 +1,35 @@
+{
+  "name": "redux-persist-machine",
+  "version": "2.0.0",
+  "description": "Fine-grained control over the persisting and rehydration of your redux store.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukebrandonfarrell/redux-persist-tree.git"
+  },
+  "keywords": [
+    "persist",
+    "redux",
+    "save",
+    "redux-persist",
+    "rehydrate",
+    "stoarge",
+    "redux-middleware",
+    "async",
+    "store"
+  ],
+  "author": "Luke Brandon Farrell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lukebrandonfarrell/redux-persist-tree/issues"
+  },
+  "homepage": "https://github.com/lukebrandonfarrell/redux-persist-tree#readme",
+  "dependencies": {
+    "@types/lodash": "^4.14.126",
+    "lodash": "^4.17.11"
+  }
+}
