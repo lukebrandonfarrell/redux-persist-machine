@@ -4,6 +4,7 @@ Install with npm:
 ```
  npm install redux-persist-tree --save
 ```
+
 ## Usage
 
 Import with:
