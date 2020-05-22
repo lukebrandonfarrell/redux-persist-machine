@@ -10,7 +10,7 @@ Install with npm:
 Import with:
 
 ```js
-import { persistMiddleware, persistTree } from "redux-persist-machine";
+import { persistMiddleware, persistMachine } from "redux-persist-machine";
 ```
 
 ### Setup
