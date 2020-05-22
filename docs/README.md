@@ -2,7 +2,7 @@
 
 Install with npm:
 ```
- npm install redux-persist-tree --save
+ npm install redux-persist-machine --save
 ```
 
 ## Usage
@@ -10,7 +10,7 @@ Install with npm:
 Import with:
 
 ```js
-import { persistMiddleware, persistTree } from "redux-persist-tree";
+import { persistMiddleware, persistTree } from "redux-persist-machine";
 ```
 
 ### Setup
