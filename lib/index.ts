@@ -85,13 +85,12 @@ export const persistMiddleware = (save: SaveCallback, load: LoadCallback) => (ne
  * @param debug - Debug data to the console
  *
  */
-export function persistTree(structure : any, store : any, debug: boolean) {
+export function createPersistMachine(structure : any, store : any, debug: boolean) {
     /*
      * We do an initial map of the structure
      */
     _map(structure, (object : any, name : any) => {
         // Catch any errors with the persist configuration
-        if(_isNil(object.values)) throw new Error("You need to define a `values` array in your persist object.");
         if(_isNil(object.key)) throw new Error("You need to define a `key` value to identify your data in your persist object.");
 
         // Get the static key for mapping
@@ -138,6 +137,12 @@ export function persistTree(structure : any, store : any, debug: boolean) {
              * we care about, which are defined in structure.
              */
             const newState = _pickBy(state, (value : any, key : any) => {
+                /**
+                 * If nothing is passed to the `values`
+                 * parameter, all values will be used.
+                 */
+                if (_isNil(stateValues)) return value;
+                
                 if (stateValues.includes(key)) return value;
             });
 
