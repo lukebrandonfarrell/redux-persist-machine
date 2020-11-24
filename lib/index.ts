@@ -25,14 +25,14 @@ let currentValue: Array<any> = [];
  *
  * @type {func}
  */
-let saveMethod : SaveCallback;
+let saveMethod: SaveCallback;
 
 /**
  * Stores our load method
  *
  * @type {func}
  */
-let loadMethod : LoadCallback;
+let loadMethod: LoadCallback;
 
 /**
  * Middleware to load persisted state data
@@ -42,21 +42,26 @@ let loadMethod : LoadCallback;
  *
  * @return {function(*): function(*=): *}
  */
-export const persistMiddleware = (save: SaveCallback, load: LoadCallback) => (next : any) => async (action : any) => {
+export const persistMiddleware = (save: SaveCallback, load: LoadCallback) => (next: any) => async (action: any) => {
     // Assign our save and load methods
     saveMethod = save;
     loadMethod = load;
     // Gets the our trigger actions
-    const currentValueActionAndKeys : Array<any> = Object.entries(currentValue)
-        .map((item : any) => { return { action: item[1].action, key: item[1].key }});
-    const targetActionAndKey : any = currentValueActionAndKeys.filter(item => (item.action === action.type))[0];
+    const currentValueActionAndKeys: Array<any> = Object.entries(currentValue)
+        .map((item: any) => {
+            return {
+                action: item[1].action, key: item[1].key
+            }
+        });
+    const targetActionAndKey: any = currentValueActionAndKeys
+        .filter(item => (item.action === action.type))[0];
 
     // Only run this code for our defined load actions
     if (!_isNil(targetActionAndKey)) {
         const { key: asyncStorageKey } = targetActionAndKey;
 
         // If target is nil, then no need to attempt to load from async storage
-        if(!_isNil(asyncStorageKey)) {
+        if (!_isNil(asyncStorageKey)) {
             // Invoke our load function on the target key
             let payload = await load(asyncStorageKey);
 
@@ -89,12 +94,15 @@ export function createPersistMachine(structure : any, store : any, debug: boolea
     /*
      * We do an initial map of the structure
      */
-    _map(structure, (object : any, name : any) => {
+    _map(structure, (object: any, name: any) => {
         // Catch any errors with the persist configuration
         if(_isNil(object.key)) throw new Error("You need to define a `key` value to identify your data in your persist object.");
 
         // Get the static key for mapping
-        const { key: asyncStorageKey } = object;
+        const {
+            key: asyncStorageKey,
+            automatic = true
+        } = object;
         // Builds the type from the reducer name, if a type has not been explicitly defined through the `action` value
         const action = object.action || buildAction(name);
 
@@ -103,6 +111,7 @@ export function createPersistMachine(structure : any, store : any, debug: boolea
             ..._get(currentValue, name, {}),
             key: asyncStorageKey,
             action,
+            automatic,
             isLoaded: false
         };
     });
@@ -120,7 +129,7 @@ export function createPersistMachine(structure : any, store : any, debug: boolea
          * declared to be saved. The `name` is the key for
          * that reducer.
          */
-        await _map(structure, async (object : any, name : any) => {
+        await _map(structure, async (object: any, name: any) => {
             // A key to keep the state mapping static
             const { key: asyncStorageKey } = object;
             // Get the state values we want to map.
@@ -161,7 +170,7 @@ export function createPersistMachine(structure : any, store : any, debug: boolea
                  * save the reducer if it has not been loaded yet.
                  */
                 if (currentValue[asyncStorageKey].isLoaded) {
-                    if(debug) console.log(`SAVED: ${asyncStorageKey}`, newState);
+                    if (debug) console.log(`SAVED: ${asyncStorageKey}`, newState);
 
                     await saveMethod(asyncStorageKey, newState);
                 }
@@ -174,13 +183,31 @@ export function createPersistMachine(structure : any, store : any, debug: boolea
      * ever need to unsubscribe from state updates.
      */
     store.subscribe(handleChange);
+    loadAutomaticReducers(store);
 
     // If debug, we to log all the actions for loading the state
-    if(debug) {
-        _map(structure, async (object : any, name : any) => {
+    if (debug) {
+        _map(structure, async (object: any, name: any) => {
             console.log(object.action || buildAction(name));
         });
     }
+}
+
+/**
+ * Dispatch actions to automatically load
+ * all reducers that the `automatic`
+ * property was set to true.
+ * @param store Redux store
+ */
+function loadAutomaticReducers(store: any) {
+    Object.entries(currentValue)
+        .forEach((item: any) => {
+            if (item[1].automatic) {
+                store.dispatch({
+                    type: item[1].action
+                })
+            }
+        });
 }
 
 /**
@@ -191,10 +218,9 @@ export function createPersistMachine(structure : any, store : any, debug: boolea
  *
  * @return {*}
  */
-function select(state : any, key : any) : object {
+function select(state: any, key: any): object {
     return _get(state, key, {});
 }
-
 
 /**
  * Builds a action type e.g. transforms "data.adminAuth" into LOAD_DATA_ADMIN_AUTH
@@ -202,6 +228,6 @@ function select(state : any, key : any) : object {
  * @param key
  * @return {string}
  */
-function buildAction(key : string){
-    return`LOAD_${ _startCase(key).split(" ").join("_").toUpperCase()}`; // We build the type from the target (reducer name)
+function buildAction(key: string) {
+    return `LOAD_${_startCase(key).split(" ").join("_").toUpperCase()}`; // We build the type from the target (reducer name)
 }
