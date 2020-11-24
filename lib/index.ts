@@ -178,7 +178,7 @@ export function persistTree(structure: any, store: any, debug: boolean) {
      * ever need to unsubscribe from state updates.
      */
     store.subscribe(handleChange);
-    _loadAutomaticReducers(store);
+    loadAutomaticReducers(store);
 
     // If debug, we to log all the actions for loading the state
     if (debug) {
@@ -188,7 +188,13 @@ export function persistTree(structure: any, store: any, debug: boolean) {
     }
 }
 
-function _loadAutomaticReducers(store: any) {
+/**
+ * Dispatch actions to automatically load
+ * all reducers that the `automatic`
+ * property was set to true.
+ * @param store Redux store
+ */
+function loadAutomaticReducers(store: any) {
     Object.entries(currentValue)
         .forEach((item: any) => {
             if (item[1].automatic) {
