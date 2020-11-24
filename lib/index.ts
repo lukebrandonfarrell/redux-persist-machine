@@ -90,7 +90,7 @@ export const persistMiddleware = (save: SaveCallback, load: LoadCallback) => (ne
  * @param debug - Debug data to the console
  *
  */
-export function persistTree(structure: any, store: any, debug: boolean) {
+export function createPersistMachine(structure: any, store: any, debug: boolean) {
     /*
      * We do an initial map of the structure
      */
