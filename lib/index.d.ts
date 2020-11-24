@@ -22,4 +22,4 @@ export declare const persistMiddleware: (save: SaveCallback, load: LoadCallback)
  * @param debug - Debug data to the console
  *
  */
-export declare function persistTree(structure: any, store: any, debug: boolean): void;
+export declare function createPersistMachine(structure: any, store: any, debug: boolean): void;

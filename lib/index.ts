@@ -85,7 +85,7 @@ export const persistMiddleware = (save: SaveCallback, load: LoadCallback) => (ne
  * @param debug - Debug data to the console
  *
  */
-export function persistTree(structure : any, store : any, debug: boolean) {
+export function createPersistMachine(structure : any, store : any, debug: boolean) {
     /*
      * We do an initial map of the structure
      */
@@ -139,7 +139,7 @@ export function persistTree(structure : any, store : any, debug: boolean) {
             const newState = _pickBy(state, (value : any, key : any) => {
                 /**
                  * If nothing is passed to the `values`
-                 * parameter, all values will be passed.
+                 * parameter, all values will be used.
                  */
                 if (_isNil(stateValues)) return value;
                 
