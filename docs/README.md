@@ -10,7 +10,7 @@ Install with npm:
 Import with:
 
 ```js
-import { persistMiddleware, persistMachine } from "redux-persist-machine";
+import { persistMiddleware, createPersistMachine } from "redux-persist-machine";
 ```
 
 ### Setup
@@ -43,6 +43,7 @@ const persistThisData = {
   orders: {
     values: ["data", "updatedAt", "index"],
     key: "@key-orders",
+    automatic: false
   },
   auth: {
     values: [
@@ -65,17 +66,18 @@ const persistThisData = {
 };
 
 // Run this to start persisting data!
-persistMachine(persistThisData, store, true);
+createPersistMachine(persistThisData, store, true);
 
 ```
 
-The `persistMachine` takes three arguments: the persist object defined above, the redux store, and an optional bool value to enable debugging (default : false).
+The `createPersistMachine` takes three arguments: the persist object defined above, the redux store, and an optional bool value to enable debugging (default : false).
 
-- The key of each value in the persist object should match your store shape, a nested reducer would be defined as such: "data.device"
+- The key of each value in the persist object should match your store shape, a nested reducer would be defined as such: "data.device". If nothinof provided to the `values` field, all fields will be saved.
 - A `key` is required to be defined for each persisted reducer, this will be used as the async storage key, it keeps a static map of your data which is independent of its shape, which is useful as your application grows.
 - An optional key of `action` can be defined to explicitly declare which action type should trigger a load of that reducer, without this value each load type is generated automatically from the state shape. e.g. to load `"data.device"` fire `LOAD_DATA_DEVICE`, to load `"subscriptionOrders"` fire  `LOAD_SUBSCRIPTION_ORDERS`.
+- An optional `automatic` key can also be provided to specify if that reducer should be loaded automatically, without having to dispatch the action. It defaults to `true`.
 
-Your reducer data will automatically saved when the values are changed. You can load each reducer using its load action (to see all the load actions generated in your console set the third parameter of `persistMachine` to `true`).
+Your reducer data will automatically saved when the values are changed. You can load each reducer using its load action (to see all the load actions generated in your console set the third parameter of `createPersistMachine` to `true`).
 
 ### Loading Data
 
@@ -92,10 +94,10 @@ case LOAD_SUBSCRIPTION_ORDERS: {
 
 This allows you to have loading on a per reducer basis separated across the application for stored data instead of having the full application wait for the data to be loaded.
 
-The middleware runs: `` action.payload = { ...storedData, ...action.payload };`` to add the saved data to the payload when the LOAD_ACTION is triggered. You can also pass additional data in your payload to add context to your LOAD_ACTIONS for complex conditional consummation of the loaded data in your reducers.
+The middleware runs: `action.payload = { ...storedData, ...action.payload };` to add the saved data to the payload when the LOAD_ACTION is triggered. You can also pass additional data in your payload to add context to your `LOAD_ACTIONS` for complex conditional consummation of the loaded data in your reducers.
 
 ## Providers
 
 Links for save and load functions for diffrent libraries and platforms.
 
-- [react-native-redux-persist-tree](https://github.com/lukebrandonfarrell/react-native-redux-persist-tree/blob/master/index.js)
+- [redux-persist-machine-async-storage](https://github.com/lukebrandonfarrell/redux-persist-machine-async-storage/blob/master/index.js)

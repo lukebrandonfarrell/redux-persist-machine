@@ -11,7 +11,7 @@ import _startCase from "lodash/startCase";
 import _isEqual from "lodash/isEqual";
 
 export type SaveCallback = (key: string, state: object) => void;
-export type LoadCallback = (key: string) => object;
+export type LoadCallback = (key: string) => Promise<object>;
 
 /**
  * Keeps track of the current values of the state.
@@ -59,11 +59,17 @@ export const persistMiddleware = (save: SaveCallback, load: LoadCallback) => (ne
     // Only run this code for our defined load actions
     if (!_isNil(targetActionAndKey)) {
         const { key: asyncStorageKey } = targetActionAndKey;
+        console.log({
+            targetActionAndKey,
+            currentValueActionAndKeys,
+            asyncStorageKey
+        })
 
         // If target is nil, then no need to attempt to load from async storage
         if (!_isNil(asyncStorageKey)) {
             // Invoke our load function on the target key
-            let payload = await load(asyncStorageKey);
+            let payload = await loadMethod(asyncStorageKey);
+            console.log({payload})
 
             // Merge the payload received from our load function
             action.payload = { ...payload, ...action.payload };
@@ -161,6 +167,7 @@ export function createPersistMachine(structure : any, store : any, debug: boolea
                 key: asyncStorageKey,
                 state: newState,
             };
+            console.log({currentValue}, "100")
 
             if (!_isEqual(previousValue, newState)) {
                 /*
@@ -200,6 +207,7 @@ export function createPersistMachine(structure : any, store : any, debug: boolea
  * @param store Redux store
  */
 function loadAutomaticReducers(store: any) {
+    console.log({currentValue}, "loadAutomatic")
     Object.entries(currentValue)
         .forEach((item: any) => {
             if (item[1].automatic) {

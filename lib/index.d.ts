@@ -3,7 +3,7 @@
  * @description Middleware used for persisting redux state.
  */
 export declare type SaveCallback = (key: string, state: object) => void;
-export declare type LoadCallback = (key: string) => object;
+export declare type LoadCallback = (key: string) => Promise<object>;
 /**
  * Middleware to load persisted state data
  *
