@@ -100,4 +100,5 @@ The middleware runs: `action.payload = { ...storedData, ...action.payload };` to
 
 Links for save and load functions for diffrent libraries and platforms.
 
-- [redux-persist-machine-async-storage](https://github.com/lukebrandonfarrell/redux-persist-machine-async-storage/blob/master/index.js)
+- [redux-persist-machine-async-storage](https://github.com/lukebrandonfarrell/redux-persist-machine-async-storage)
+- [redux-persist-machine-local-storage](https://github.com/aspect-apps/redux-persist-machine-local-storage)
