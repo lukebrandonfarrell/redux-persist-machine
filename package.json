@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lukebrandonfarrell/redux-persist-tree.git"
+    "url": "git+https://github.com/aspect-apps/redux-persist-machine.git"
   },
   "keywords": [
     "persist",
@@ -24,9 +24,9 @@
   "author": "Luke Brandon Farrell",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lukebrandonfarrell/redux-persist-tree/issues"
+    "url": "https://github.com/aspect-apps/redux-persist-machine/issues"
   },
-  "homepage": "https://github.com/lukebrandonfarrell/redux-persist-tree#readme",
+  "homepage": "https://github.com/aspect-apps/redux-persist-machine#readme",
   "dependencies": {
     "@types/lodash": "^4.14.126",
     "lodash": "^4.17.11"
