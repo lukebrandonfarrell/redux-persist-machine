@@ -112,7 +112,7 @@ const persistMiddleware = createPersistMiddleware(structure, saveState, loadStat
 persistMiddleware.run(store)
 ```
 
-- `store: [Store](https://redux.js.org/api/store)` the redux store.
+- `store :` [Store](https://redux.js.org/api/store) - the redux store.
 
 ## Providers
 
