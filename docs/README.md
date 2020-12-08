@@ -97,10 +97,11 @@ Creates a Redux persist middleware with your store structure.
 - `structure: Object` - A object to define how you want to load your reducer values. The key of each value in the persist object should match your store shape, a nested reducer would be defined as such: `data.device`. Currently supported options are:
     - `values : Array` you can customize which values the package will keep track of. If nothing is provided to the `values` field, all fields will be saved.
     - `key : string` this will be used as the storage key, it keeps a static map of your data which is independent of its shape, which is useful if your reducers change their structure or name.
-    - `action : string` defined to explicitly declare which action type should trigger a load of that reducer, without this value each load type is generated automatically from the state shape. e.g. to load `"data.device"` fire `@ReduxPM/LoadDataDevice`.
+    - `action : string` defined to explicitly declare which action type should trigger a load of that reducer, without this value each load type is generated automatically from the state shape. e.g. to load `"data.device"` fire `LOAD_SUBSCRIPTION_ORDERS`.
     - `automatic : boolean` to specify if that reducer should be loaded automatically, without having to dispatch the action. It defaults to `true`.
 - `saveState : Function` - a save function with the following signature `(key, state) => void`
 - `loadState : Function` - a load function with the following signature `(key) => Object`
+- `debug : booolean` - whether to enable debug mode or not (optional)
 
 ### `createPersistMiddleware(structure, saveState, loadState).run(store)`
 
