@@ -241,5 +241,6 @@ function select(state: any, key: any): object {
  * @return {string}
  */
 function buildAction(key: string) {
-    return `LOAD_${_startCase(key).split(" ").join("_").toUpperCase()}`; // We build the type from the target (reducer name)
+    return `@ReduxPM/Load${_startCase(key).split(" ").join("")}`
+    // @ReduxPM/LoadSubscriptionOrders
 }
