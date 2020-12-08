@@ -57,8 +57,7 @@ const persistMiddleware = createPersistMiddleware(
   structure, saveState, loadState
 )
 const middleware = [persistMiddleware];
-
-export const store = createStore(
+const store = createStore(
   reducers,
   applyMiddleware(...middleware)
 );
