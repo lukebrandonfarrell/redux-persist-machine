@@ -1,6 +1,6 @@
 {
   "name": "redux-persist-machine",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Fine-grained control over the persisting and rehydration of your redux store.",
   "main": "lib/index.js",
   "scripts": {
