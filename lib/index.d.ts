@@ -12,7 +12,10 @@ export declare type LoadCallback = (key: string) => Promise<object>;
  *
  * @return {function(*): function(*=): *}
  */
-export declare const persistMiddleware: (save: SaveCallback, load: LoadCallback) => (next: any) => (action: any) => Promise<any>;
+declare function persistMiddleware(): (next: any) => (action: any) => Promise<any>;
+declare namespace persistMiddleware {
+    let run: (store: any) => void;
+}
 /**
  * Persist Tree - Method to persist state data
  *
@@ -22,4 +25,5 @@ export declare const persistMiddleware: (save: SaveCallback, load: LoadCallback)
  * @param debug - Debug data to the console
  *
  */
-export declare function createPersistMachine(structure: any, store: any, debug: boolean): void;
+export declare function createPersistMachine(structure: any, save: SaveCallback, load: LoadCallback, debug: boolean): typeof persistMiddleware;
+export {};
