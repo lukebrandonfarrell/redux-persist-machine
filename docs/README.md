@@ -48,7 +48,7 @@ const structure = {
      "id",
      "token",
     ],
-    action: "LOAD_DEVICE",
+    action: "LOAD_DEVICE", // custom action name
     key: "@key-device"
   }
 };
@@ -76,7 +76,7 @@ Your reducer data will automatically saved when the values are changed. You can 
 You can receive actions in your reducers. The code below will apply the saved state to your current state:
 
 ```js
-case LOAD_SUBSCRIPTION_ORDERS: {
+case "@ReduxPM/LoadSubscriptionOrders": {
     return {
         ...state,
         ...action.payload,
@@ -86,7 +86,7 @@ case LOAD_SUBSCRIPTION_ORDERS: {
 
 This allows you to have loading on a per reducer basis separated across the application for stored data instead of having the full application wait for the data to be loaded.
 
-The middleware runs: `action.payload = { ...storedData, ...action.payload };` to add the saved data to the payload when the `LOAD_ACTION` is triggered. You can also pass additional data in your payload to add context to your `LOAD_ACTIONS` for complex conditional consummation of the loaded data in your reducers.
+The middleware runs: `action.payload = { ...storedData, ...action.payload };` to add the saved data to the payload when the `@ReduxPM/LoadActions` is triggered. You can also pass additional data in your payload to add context to your `@ReduxPM/LoadActions` for complex conditional consummation of the loaded data in your reducers.
 
 ## API Reference
 
