@@ -17,7 +17,6 @@ import { createPersistMachine } from "redux-persist-machine";
 
 Firstly add the return value of `createPersistMiddleware` to your redux middleware. Then after creating your store, run the `createPersistMiddleware().run` method.
 
-
 ```js
 // e.g. save and load methods -> available as separate packages below
 const saveState = (key, state) => ...
