@@ -242,5 +242,4 @@ function select(state: any, key: any): object {
  */
 function buildAction(key: string) {
     return `@ReduxPM/Load${_startCase(key).split(" ").join("")}`
-    // @ReduxPM/LoadSubscriptionOrders
 }
