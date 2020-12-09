@@ -93,7 +93,6 @@ declare namespace persistMiddleware {
  * to persist.
  * @param store - Redux Store
  * @param debug - Debug data to the console
- *
  */
 export function createPersistMachine(structure: any, save: SaveCallback, load: LoadCallback, debug: boolean) {
     // Assign our save and load methods
@@ -183,7 +182,7 @@ export function createPersistMachine(structure: any, save: SaveCallback, load: L
             automatic = true
         } = object;
         // Builds the type from the reducer name, if a type has not been explicitly defined through the `action` value
-        const action = object.action || buildAction(name);
+        const action = object.action || getPersistMachineAction(name);
 
         // Initialize and empty currentValue, this is used to keep track of previous values
         currentValue[asyncStorageKey] = {
@@ -198,7 +197,7 @@ export function createPersistMachine(structure: any, save: SaveCallback, load: L
     // If debug, we to log all the actions for loading the state
     if (debug) {
         _map(structure, async (object: any, name: any) => {
-            console.log(object.action || buildAction(name));
+            console.log(object.action || getPersistMachineAction(name));
         });
     }
 
@@ -235,11 +234,11 @@ function select(state: any, key: any): object {
 }
 
 /**
- * Builds a action type e.g. transforms "data.adminAuth" into LOAD_DATA_ADMIN_AUTH
- *
- * @param key
- * @return {string}
+ * Builds an action type.
+ * e.g. transforms "data.adminAuth" into @ReduxPM/LoadDataAdminAuth
+ * 
+ * @param {string} key the key to generate the action name
  */
-function buildAction(key: string) {
+export function getPersistMachineAction(key: string): string {
     return `@ReduxPM/Load${_startCase(key).split(" ").join("")}`
 }
