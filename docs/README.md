@@ -25,7 +25,7 @@ const loadState = (key) => ...
 /**
 * You define the structure that you want to save
 * in this object, and then pass it as an argument.
-* Instructions on how to create this object are above.
+* Instructions on how to create this object are bellow.
 */
 const structure = {
   orders: {
@@ -68,23 +68,31 @@ persistMiddleware.run(store)
 
 For the load and save method, you don't have to write them by yourself, they are [available as separate packages below](#providers).
 
-Your reducer data will automatically saved when the values are changed. You can load each reducer using its load action (to see all the load actions generated in your console set the fourth parameter of `createPersistMachine` to `true`).
+Your reducer data will automatically save when the values are changed. You can load each reducer using its load action (to see all the load actions generated in your console set the fourth parameter of `createPersistMachine` to `true`).
 
 
 ### Loading Data
 
-You can receive actions in your reducers. The code below will apply the saved state to your current state:
+You can receive actions in your reducers.
+
+This allows you to have loading on a per reducer basis separated across the application for stored data instead of having the full application wait for the data to be loaded.
+
+The package exports a function that makes it easier for you to set up a case in the reducer, by generating an action name that matches the one that the package uses under the hood.
+
+The code below will apply the saved state to your current state:
 
 ```js
-case "@ReduxPM/LoadSubscriptionOrders": {
-    return {
-        ...state,
+import { getPersistMachineAction } from 'redux-persist-machine'
+
+case getPersistMachineAction("load.subscriptionOrders"): {
+  return {
+    ...state,
         ...action.payload,
     }
 }
 ```
 
-This allows you to have loading on a per reducer basis separated across the application for stored data instead of having the full application wait for the data to be loaded.
+Of course, you can also define your own custom action name. This custom action name has to be passed oon the `action` property of the reducer in the structure object.
 
 The middleware runs: `action.payload = { ...storedData, ...action.payload };` to add the saved data to the payload when the `@ReduxPM/LoadActions` is triggered. You can also pass additional data in your payload to add context to your `@ReduxPM/LoadActions` for complex conditional consummation of the loaded data in your reducers.
 
@@ -105,6 +113,8 @@ Creates a Redux persist middleware with your store structure.
 
 ### `createPersistMiddleware(structure, saveState, loadState).run(store)`
 
+- `store :` [Store](https://redux.js.org/api/store) - the redux store.
+
 Starts the persist middleware. You should run this immediately after creating your store.
 
 ```js
@@ -112,7 +122,20 @@ const persistMiddleware = createPersistMiddleware(structure, saveState, loadStat
 persistMiddleware.run(store)
 ```
 
-- `store :` [Store](https://redux.js.org/api/store) - the redux store.
+### `getPersistMachineAction(actionKey)`
+
+Generates an action name based on the provided key. You can use this function to set the case in your reducer to handle the data loading.
+
+```js
+case getPersistMachineAction("load.user.orders"): {
+    return {
+        ...state,
+        ...action.payload,
+    }
+}
+```
+
+The example above would return `@ReduxPM/LoadUserOrders`.
 
 ## Providers
 
