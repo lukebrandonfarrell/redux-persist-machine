@@ -26,7 +26,7 @@ declare namespace persistMiddleware {
  */
 export declare function createPersistMachine(structure: any, save: SaveCallback, load: LoadCallback, debug: boolean): typeof persistMiddleware;
 /**
- * Builds a action type.
+ * Builds an action type.
  * e.g. transforms "data.adminAuth" into @ReduxPM/LoadDataAdminAuth
  *
  * @param {string} key the key to generate the action name
