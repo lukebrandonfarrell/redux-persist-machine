@@ -15,7 +15,7 @@ import { createPersistMachine } from "redux-persist-machine";
 
 ### Setup
 
-Firstly add the return value of `createPersistMiddleware` to your redux middleware. Then after creating your store, run the `createPersistMiddleware().run` method.
+Firstly add the return value of `createPersistMachine` to your redux middleware. Then after creating your store, run the `createPersistMachine().run` method.
 
 ```js
 // e.g. save and load methods -> available as separate packages below
@@ -53,7 +53,7 @@ const structure = {
   }
 };
 
-const persistMiddleware = createPersistMiddleware(
+const persistMiddleware = createPersistMachine(
   structure, saveState, loadState
 )
 const middleware = [persistMiddleware];
@@ -104,7 +104,7 @@ There's also an example project that shows `redux-persist-machine` in a real-app
 
 ## API Reference
 
-### `createPersistMiddleware(structure, saveState, loadState)`
+### `createPersistMachine(structure, saveState, loadState)`
 
 Creates a Redux persist middleware with your store structure.
 
@@ -117,14 +117,14 @@ Creates a Redux persist middleware with your store structure.
 - `loadState : Function` - a load function with the following signature `(key) => Object`
 - `debug : booolean` - whether to enable debug mode or not (optional)
 
-### `createPersistMiddleware(structure, saveState, loadState).run(store)`
+### `createPersistMachine(structure, saveState, loadState).run(store)`
 
 - `store :` [Store](https://redux.js.org/api/store) - the redux store.
 
 Starts the persist middleware. You should run this immediately after creating your store.
 
 ```js
-const persistMiddleware = createPersistMiddleware(structure, saveState, loadState)
+const persistMiddleware = createPersistMachine(structure, saveState, loadState)
 persistMiddleware.run(store)
 ```
 
